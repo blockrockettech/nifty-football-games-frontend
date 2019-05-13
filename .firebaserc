@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "futbol-cards"
+  },
+  "targets": {
+    "futbol-cards": {
+      "hosting": {
+        "niftyfootball-games": [
+          "niftyfootball-games"
+        ]
+      }
+    }
+  }
+}
