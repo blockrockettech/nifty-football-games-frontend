@@ -16,14 +16,11 @@ async function playGame() {
     const home = require('../test_data/nifty_team_70');
     const away = require('../test_data/nifty_team_90');
 
-    // for (let games = 0; games < 1; games++) {
+    for (let games = 0; games < 10; games++) {
 
       console.log(`${home.owner.substr(0, 4)} [${home.topTeam.teamAverageFloored}]\t\tVS\t\t${away.owner.substr(0, 4)} [${away.topTeam.teamAverageFloored}]\n`);
 
       engine.init(home.topTeam, away.topTeam);
-
-      // homeAttack.map((p) => console.log(`H ${p.attributeAvg} ${p.positionText}`));
-      // awayDefence.map((p) => console.log(`A ${p.attributeAvg} ${p.positionText}`));
 
       for (let min = 0; min < TOTAL_ITERATIONS; min++) {
         const homeAttackFormation = engine.attackFormation(HOME);
@@ -50,20 +47,17 @@ async function playGame() {
         `);
       }
 
-      // homeGoals += engine.homeGoals;
-      // awayGoals += engine.awayGoals;
-      //
-      // const matchResult = engine.result();
-      // if (matchResult === NO_RESULT) {
-      //   draws++;
-      // } else if (matchResult === HOME) {
-      //   homeWins++;
-      // } else if (matchResult === AWAY) {
-      //   awayWins++;
-      // }
+      const matchResult = engine.result();
+      if (matchResult === NO_RESULT) {
+        draws++;
+      } else if (matchResult === HOME) {
+        homeWins++;
+      } else if (matchResult === AWAY) {
+        awayWins++;
+      }
 
-      // console.log(`\n\nH ${homeWins} : D ${draws} : A ${awayWins} HG: ${homeGoals} AG: ${awayGoals}`);
-    // }
+      console.log(`\n\nH ${homeWins} : D ${draws} : A ${awayWins} HG: ${homeGoals} AG: ${awayGoals}`);
+    }
 
     console.log('\n\n');
 
