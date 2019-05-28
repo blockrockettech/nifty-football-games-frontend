@@ -9,6 +9,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap-vue": "^2.0.0-rc.21",
     "core-js": "^2.6.5",
     "footballsimulationengine": "^2.2.1",
     "lodash": "^4.17.11",

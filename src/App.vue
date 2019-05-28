@@ -1,29 +1,217 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="container-fluid text-center mt-3">
+    <div class="row">
+      <div class="col">
+        <img alt="Nifty Football" src="./assets/logo.svg" style="max-width: 100px">
+
+        <router-view/>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+  @font-face {
+    font-family: CrackerJack;
+    src: url("./assets/CrackerJack.otf") format("opentype");
+  }
+
+  @import url('https://fonts.googleapis.com/css?family=Anton');
+  @import "colours";
+  @import '../node_modules/bootstrap/scss/bootstrap';
+  @import '../node_modules/bootstrap-vue/src/index.scss';
+
+  [v-cloak] {
+    display: none
+  }
+
+  #app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  p {
+    color: $black;
+  }
+
+  body {
+    color: $black;
+  }
+
+  h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.25rem;
+    color: $black;
+    letter-spacing: 0.1rem;
+  }
+
+  h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    color: $black;
+    letter-spacing: 0.1rem;
+  }
+
+  h3 {
+    font-family: 'Anton', sans-serif;
+    color: $black;
+    letter-spacing: 0.1rem;
+  }
+
+  h4 {
+    font-family: 'Anton', sans-serif;
+    color: $black;
+  }
+
+  h5 {
+    color: $black;
+  }
+
+  footer {
+    margin-bottom: 120px;
+    margin-top: 50px;
+  }
+
+  code {
+    color: $primary;
+  }
+
+  .smallest {
+    font-size: 0.6rem;
+  }
+
+  .crackerjack {
+    font-family: 'CrackerJack', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .nf-link {
+    font-family: 'CrackerJack', sans-serif;
+    text-transform: uppercase;
+    color: $black;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &.nf-link-active {
+      color: $secondary;
     }
   }
-}
+
+  .badge {
+    font-size: 1rem;
+    font-family: 'CrackerJack', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background-color: $black;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: $secondary;
+  }
+
+  .btn-secondary {
+    font-family: 'CrackerJack', sans-serif;
+    text-transform: uppercase;
+    border: 2px solid $black;
+    box-shadow: 0 6px 0 0 $black;
+    margin-bottom: 6px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open > .dropdown-toggle.btn-secondary {
+    border: 2px solid $black;
+    box-shadow: 0 6px 0 0 $black;
+  }
+
+  .header-text {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 2rem;
+    color: $black;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+
+    a {
+      color: $black;
+    }
+  }
+
+  .text-purple-lg {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $purple;
+    text-transform: uppercase;
+  }
+
+  .text-blue-lg {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $blue;
+    text-transform: uppercase;
+  }
+
+  .text-orange-lg {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $orange;
+    text-transform: uppercase;
+  }
+
+  .text-lime-lg {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $lime;
+    text-transform: uppercase;
+  }
+
+  .header-text-sm {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.3rem;
+    color: $black;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    a {
+      color: $black;
+    }
+  }
+
+  .form-control {
+    /*font-family: 'CrackerJack', sans-serif;*/
+  }
+
+  .btn-primary {
+    color: $body-bg;
+  }
+
+  .card {
+    .card-title {
+      color: $black;
+      font-size: 1rem;
+    }
+  }
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .2s ease;
+  }
+
+  .slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */
+  {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .75s;
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
 </style>
