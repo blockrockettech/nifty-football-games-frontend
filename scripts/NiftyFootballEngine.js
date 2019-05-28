@@ -5,8 +5,19 @@ const AWAY_CODE = 2;
 const DRAW = 3;
 
 const GOAL_DICE_NO = 1;
+
+const SHOT_START_NO = 2;
+const SHOT_END_NO = SHOT_START_NO + 3;
+
+const CORNER_START_NO = SHOT_END_NO;
+const CORNER_END_NO = SHOT_START_NO + 2;
+
+const YELLOW_NO = CORNER_END_NO;
+
 const SAMPLE_START_SIZE = 90;
 const SAMPLE_MULTIPLIER = 1.75;
+
+const coinFlip = () => _.random(1) === 0;
 
 module.exports = class NiftyFootballEngine {
 
@@ -16,11 +27,24 @@ module.exports = class NiftyFootballEngine {
     this.homeTeam = homeTeam;
     this.awayTeam = awayTeam;
 
-    this.homeGoals = 0;
-    this.awayGoals = 0;
+    this.homeStats = {
+      goals: 0,
+      shots: 0,
+      corners: 0,
+      scorers: [],
+      yellows: [],
+      reds: [],
+    };
 
-    this.homeScorers = [];
-    this.awayScorers = [];
+    this.awayStats = {
+      goals: 0,
+      shots: 0,
+      corners: 0,
+      scorers: [],
+      yellows: [],
+      reds: [],
+    };
+
   }
 
   getTeam(teamCode) {
@@ -70,48 +94,74 @@ module.exports = class NiftyFootballEngine {
 
     const diceThrow = _.random(0, sampleSize);
 
+    const cloneWithTime = (player) => {
+      let goalAttacker = _.clone(player);
+      goalAttacker['goalTime'] = min;
+      return goalAttacker;
+    };
+
     if (diceThrow === GOAL_DICE_NO) {
       if (teamCode === HOME_CODE) {
-        this.homeGoals++;
+        this.homeStats.goals++;
+        this.homeStats.shots++;
 
-        let goalAttacker = _.clone(attacker);
-        goalAttacker['goalTime'] = min;
-        this.homeScorers.push(goalAttacker);
-
-        return HOME_CODE;
+        this.homeStats.scorers.push(cloneWithTime(attacker));
       } else if (teamCode === AWAY_CODE) {
-        this.awayGoals++;
+        this.awayStats.goals++;
+        this.awayStats.shots++;
 
-        let goalAttacker = _.clone(attacker);
-        goalAttacker['goalTime'] = min;
-        this.awayScorers.push(goalAttacker);
-
-        return AWAY_CODE;
+        this.awayStats.scorers.push(cloneWithTime(attacker));
       }
     }
 
-    return DRAW;
+    // shots
+    if (_.inRange(diceThrow, SHOT_START_NO, SHOT_END_NO)) {
+      if (teamCode === HOME_CODE) {
+        this.homeStats.shots++;
+      } else if (teamCode === AWAY_CODE) {
+        this.awayStats.shots++;
+      }
+    }
+
+    // corners
+    if (_.inRange(diceThrow, CORNER_START_NO, CORNER_END_NO)) {
+      if (teamCode === HOME_CODE) {
+        this.homeStats.corners++;
+      } else if (teamCode === AWAY_CODE) {
+        this.awayStats.corners++;
+      }
+    }
+
+    // yellows
+    if (diceThrow == YELLOW_NO) {
+        if (coinFlip()) {
+            this.homeStats.yellows.push(cloneWithTime(attacker));
+        }
+        else {
+          this.awayStats.yellows.push(cloneWithTime(defender));
+        }
+    }
+  }
+
+  getHomeStats() {
+    return this.homeStats;
+  }
+
+  getAwayStats() {
+    return this.awayStats;
   }
 
   getHomeGoals() {
-    return this.homeGoals;
+    return this.homeStats.goals;
   }
 
   getAwayGoals() {
-    return this.awayGoals;
-  }
-
-  getHomeScorers() {
-    return this.homeScorers;
-  }
-
-  getAwayScorers() {
-    return this.awayScorers;
+    return this.awayStats.goals;
   }
 
   result() {
-    if (this.homeGoals === this.awayGoals) return DRAW;
-    if (this.homeGoals > this.awayGoals) return HOME_CODE;
-    if (this.awayGoals > this.homeGoals) return AWAY_CODE;
+    if (this.homeGoals() === this.awayGoals()) return DRAW;
+    if (this.homeGoals() > this.awayGoals()) return HOME_CODE;
+    if (this.awayGoals() > this.homeGoals()) return AWAY_CODE;
   }
 };

@@ -6,27 +6,19 @@ const TOTAL_ITERATIONS = 90 + _.random(2, 7);
 
 const HOME = 1;
 const AWAY = 2;
-const NO_RESULT = 3;
 
 async function playGame() {
   try {
 
     console.log('\n\n');
+    const engine = new NiftyFootballEngine();
 
     const home = require('../test_data/nifty_team_70');
     const away = require('../test_data/nifty_team_90');
 
-    const engine = new NiftyFootballEngine();
-
-    console.log(`${home.owner.substr(0, 4)} [${home.topTeam.teamAverageFloored}]\t\tVS\t\t${away.owner.substr(0, 4)} [${away.topTeam.teamAverageFloored}]\n`);
-
-    let homeWins = 0;
-    let homeGoals = 0;
-    let awayWins = 0;
-    let awayGoals = 0;
-    let draws = 0;
-
     // for (let games = 0; games < 1; games++) {
+
+      console.log(`${home.owner.substr(0, 4)} [${home.topTeam.teamAverageFloored}]\t\tVS\t\t${away.owner.substr(0, 4)} [${away.topTeam.teamAverageFloored}]\n`);
 
       engine.init(home.topTeam, away.topTeam);
 
@@ -44,13 +36,18 @@ async function playGame() {
 
         engine.attack(awayAttackFormation, homeDefenceFormation, AWAY, min);
 
-        const homeScorers = engine.getHomeScorers();
-        const awayScorers = engine.getAwayScorers();
+        const homeStats = engine.getHomeStats();
+        const awayStats = engine.getAwayStats();
 
-        const homeScorersLog = homeScorers.map((s) => `${s.goalTime}. ${s.fullName}\n`);
-        const awayScorersLog = awayScorers.map((s) => `\t\t\t\t${s.goalTime}. ${s.fullName}\n`);
+        const homeScorersLog = homeStats.scorers.map((s) => `${s.goalTime}. ${s.fullName}\n`);
+        const awayScorersLog = awayStats.scorers.map((s) => `\t\t\t\t${s.goalTime}. ${s.fullName}\n`);
 
-        log(`\t${engine.getHomeGoals()}\t\t\t\t${engine.getAwayGoals()}\n${homeScorersLog.join('')}${awayScorersLog.join('')}`);
+        log(`\t${homeStats.goals}\t\t\t\t${awayStats.goals}\n${homeScorersLog.join('')}${awayScorersLog.join('')}
+          Shots  \t\t${homeStats.shots} | ${awayStats.shots}
+          Corners\t\t${homeStats.corners} | ${awayStats.corners}
+          Yellows\t\t${homeStats.yellows.length} | ${awayStats.yellows.length}
+          Reds   \t\t${homeStats.reds.length} | ${awayStats.reds.length}
+        `);
       }
 
       // homeGoals += engine.homeGoals;
