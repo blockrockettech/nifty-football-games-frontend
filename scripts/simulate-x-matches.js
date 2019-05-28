@@ -1,6 +1,6 @@
-const NiftyFootballEngine = require('./NiftyFootballEngine');
-log = require('single-line-log').stdout;
-_ = require('lodash');
+const NiftyFootballEngine = require('../src/utils/NiftyFootballEngine');
+const log = require('single-line-log').stdout;
+const _ = require('lodash');
 
 const TOTAL_ITERATIONS = 90 + _.random(2, 7);
 
@@ -20,7 +20,7 @@ async function playGame() {
     let totalAwayWins = 0;
     let totalDraws = 0;
 
-    for (let games = 0; games < 1000; games++) {
+    for (let games = 0; games < 10000; games++) {
 
       engine.init(home.topTeam, away.topTeam);
 

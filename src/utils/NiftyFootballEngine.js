@@ -15,7 +15,7 @@ const CORNER_END_NO = SHOT_START_NO + 2;
 const YELLOW_NO = CORNER_END_NO;
 
 const SAMPLE_START_SIZE = 90;
-const SAMPLE_MULTIPLIER = 1.75;
+const SAMPLE_MULTIPLIER = 1.5;
 
 const coinFlip = () => _.random(1) === 0;
 

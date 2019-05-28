@@ -1,6 +1,6 @@
-const NiftyFootballEngine = require('./NiftyFootballEngine');
-log = require('single-line-log').stdout;
-_ = require('lodash');
+const NiftyFootballEngine = require('../src/utils/NiftyFootballEngine');
+const log = require('single-line-log').stdout;
+const _ = require('lodash');
 
 const TOTAL_ITERATIONS = 90 + _.random(2, 7);
 
