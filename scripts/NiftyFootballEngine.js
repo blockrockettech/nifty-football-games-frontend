@@ -151,17 +151,9 @@ module.exports = class NiftyFootballEngine {
     return this.awayStats;
   }
 
-  getHomeGoals() {
-    return this.homeStats.goals;
-  }
-
-  getAwayGoals() {
-    return this.awayStats.goals;
-  }
-
   result() {
-    if (this.homeGoals() === this.awayGoals()) return DRAW;
-    if (this.homeGoals() > this.awayGoals()) return HOME_CODE;
-    if (this.awayGoals() > this.homeGoals()) return AWAY_CODE;
+    if (this.homeStats.goals === this.awayStats.goals) return DRAW;
+    if (this.homeStats.goals > this.awayStats.goals) return HOME_CODE;
+    if (this.homeStats.goals < this.awayStats.goals) return AWAY_CODE;
   }
 };

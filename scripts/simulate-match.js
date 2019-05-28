@@ -6,6 +6,7 @@ const TOTAL_ITERATIONS = 90 + _.random(2, 7);
 
 const HOME = 1;
 const AWAY = 2;
+const DRAW = 3;
 
 async function playGame() {
   try {
@@ -13,50 +14,36 @@ async function playGame() {
     console.log('\n\n');
     const engine = new NiftyFootballEngine();
 
-    const home = require('../test_data/nifty_team_70');
-    const away = require('../test_data/nifty_team_90');
+    const home = require('../test_data/nifty_team_90');
+    const away = require('../test_data/nifty_team_70');
 
-    for (let games = 0; games < 10; games++) {
+    console.log(`${home.owner.substr(0, 4)} [${home.topTeam.teamAverageFloored}]\t\tVS\t\t${away.owner.substr(0, 4)} [${away.topTeam.teamAverageFloored}]\n`);
 
-      console.log(`${home.owner.substr(0, 4)} [${home.topTeam.teamAverageFloored}]\t\tVS\t\t${away.owner.substr(0, 4)} [${away.topTeam.teamAverageFloored}]\n`);
+    engine.init(home.topTeam, away.topTeam);
 
-      engine.init(home.topTeam, away.topTeam);
+    for (let min = 0; min < TOTAL_ITERATIONS; min++) {
+      const homeAttackFormation = engine.attackFormation(HOME);
+      const homeDefenceFormation = engine.defenceFormation(HOME);
 
-      for (let min = 0; min < TOTAL_ITERATIONS; min++) {
-        const homeAttackFormation = engine.attackFormation(HOME);
-        const homeDefenceFormation = engine.defenceFormation(HOME);
+      const awayAttackFormation = engine.attackFormation(AWAY);
+      const awayDefenceFormation = engine.defenceFormation(AWAY);
 
-        const awayAttackFormation = engine.attackFormation(AWAY);
-        const awayDefenceFormation = engine.defenceFormation(AWAY);
+      engine.attack(homeAttackFormation, awayDefenceFormation, HOME, min);
 
-        engine.attack(homeAttackFormation, awayDefenceFormation, HOME, min);
+      engine.attack(awayAttackFormation, homeDefenceFormation, AWAY, min);
 
-        engine.attack(awayAttackFormation, homeDefenceFormation, AWAY, min);
+      const homeStats = engine.getHomeStats();
+      const awayStats = engine.getAwayStats();
 
-        const homeStats = engine.getHomeStats();
-        const awayStats = engine.getAwayStats();
+      const homeScorersLog = homeStats.scorers.map((s) => `${s.goalTime}. ${s.fullName} ${s.positionName.substr(0,3)}\n`);
+      const awayScorersLog = awayStats.scorers.map((s) => `\t\t\t\t${s.goalTime}. ${s.fullName} ${s.positionName.substr(0,3)}\n`);
 
-        const homeScorersLog = homeStats.scorers.map((s) => `${s.goalTime}. ${s.fullName}\n`);
-        const awayScorersLog = awayStats.scorers.map((s) => `\t\t\t\t${s.goalTime}. ${s.fullName}\n`);
-
-        log(`\t${homeStats.goals}\t\t\t\t${awayStats.goals}\n${homeScorersLog.join('')}${awayScorersLog.join('')}
+      log(`\t${homeStats.goals}\t\t\t\t${awayStats.goals}\n${homeScorersLog.join('')}${awayScorersLog.join('')}
           Shots  \t\t${homeStats.shots} | ${awayStats.shots}
           Corners\t\t${homeStats.corners} | ${awayStats.corners}
           Yellows\t\t${homeStats.yellows.length} | ${awayStats.yellows.length}
           Reds   \t\t${homeStats.reds.length} | ${awayStats.reds.length}
         `);
-      }
-
-      const matchResult = engine.result();
-      if (matchResult === NO_RESULT) {
-        draws++;
-      } else if (matchResult === HOME) {
-        homeWins++;
-      } else if (matchResult === AWAY) {
-        awayWins++;
-      }
-
-      console.log(`\n\nH ${homeWins} : D ${draws} : A ${awayWins} HG: ${homeGoals} AG: ${awayGoals}`);
     }
 
     console.log('\n\n');
