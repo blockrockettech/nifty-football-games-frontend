@@ -20,7 +20,7 @@
 
     <div v-if="home && away" class="text-center scoreboard-box m-5">
 
-      <img alt="Nifty Football" src="../assets/logo.svg" style="max-width: 100px" class="mt-3">
+
 
       <div class="row mt-5">
         <div class="col">
@@ -29,7 +29,7 @@
           <div v-if="homeTopTeam" class="text-white">{{ homeTopTeam.topTeam.teamAverageFloored }}</div>
         </div>
         <div class="col text-white-lg">
-          VS
+          <img alt="Nifty Football" src="../assets/logo.svg" style="max-width: 100px" class="mt-3">
         </div>
         <div class="col">
           <div class="text-white">AWAY</div>
@@ -43,8 +43,9 @@
           <span class="bg-dark pl-5 pr-5">{{ homeStats.goals }}</span>
         </div>
         <div class="col text-lime-lg">
-          <span v-if="!complete">{{ currentMin }}</span>
-          <span v-else>RESULT</span>
+
+          <div v-if="!complete">{{ currentMin }}</div>
+          <div v-else>RESULT</div>
         </div>
         <div class="col text-lime-xl">
           <span class="bg-dark pl-5 pr-5">{{ awayStats.goals }}</span>
