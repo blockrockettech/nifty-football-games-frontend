@@ -75,7 +75,7 @@
   }
 
   .scoreboard-box {
-    background-color: $black;
+    background-color: $lightblack;
     font-family: 'CrackerJack', sans-serif;
     text-transform: uppercase;
     border: 12px solid $purple;
