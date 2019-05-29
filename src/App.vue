@@ -2,8 +2,6 @@
   <div class="container-fluid text-center mt-3">
     <div class="row">
       <div class="col">
-        <img alt="Nifty Football" src="./assets/logo.svg" style="max-width: 100px">
-
         <router-view/>
       </div>
     </div>
@@ -76,6 +74,22 @@
     color: $primary;
   }
 
+  .scoreboard-box {
+    background-color: $black;
+    font-family: 'CrackerJack', sans-serif;
+    text-transform: uppercase;
+    border: 12px solid $purple;
+    box-shadow: 0 18px 0 0 $purple;
+    font-size: 1.25rem;
+    color: $white;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    letter-spacing: 2px;
+  }
+
   .smallest {
     font-size: 0.6rem;
   }
@@ -137,29 +151,57 @@
 
   .text-purple-lg {
     font-family: 'CrackerJack', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: $purple;
     text-transform: uppercase;
   }
 
-  .text-blue-lg {
+  .text-blue-md {
     font-family: 'CrackerJack', sans-serif;
     font-size: 1.5rem;
     color: $blue;
     text-transform: uppercase;
   }
 
+  .text-blue-lg {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 2rem;
+    color: $blue;
+    text-transform: uppercase;
+  }
+
+  .text-blue-xl {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 4rem;
+    color: $blue;
+    text-transform: uppercase;
+  }
+
   .text-orange-lg {
     font-family: 'CrackerJack', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: $orange;
     text-transform: uppercase;
   }
 
   .text-lime-lg {
     font-family: 'CrackerJack', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: $lime;
+    text-transform: uppercase;
+  }
+
+  .text-lime-xl {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 5rem;
+    color: $lime;
+    text-transform: uppercase;
+  }
+
+  .text-white-lg {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 4rem;
+    color: $white;
     text-transform: uppercase;
   }
 
