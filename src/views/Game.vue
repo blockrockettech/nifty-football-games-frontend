@@ -20,8 +20,6 @@
 
     <div v-if="home && away" class="text-center scoreboard-box m-5">
 
-
-
       <div class="row mt-5">
         <div class="col">
           <div class="text-white">HOME</div>
@@ -97,7 +95,6 @@
   import PageTitle from '../components/PageTitle';
   import { dotDotDotAccount, waitForMillis } from '../utils';
   import _ from 'lodash';
-  import NiftyFootballEngine from '../utils/NiftyFootballEngine';
   import Vue2Filters from 'vue2-filters';
 
   export default {
@@ -117,14 +114,12 @@
         homeStats: null,
         awayStats: null,
         currentMin: 0,
-        engine: new NiftyFootballEngine(),
       };
     },
     computed: {
       ...mapState([
         'cardsApiService',
       ]),
-
     },
     methods: {
       loadTopTeams() {
@@ -145,31 +140,7 @@
         this.homeTopTeam = await this.cardsApiService.loadTopTeam(this.home);
         this.awayTopTeam = await this.cardsApiService.loadTopTeam(this.away);
 
-        const HOME = 1;
-        const AWAY = 2;
-        const DRAW = 3;
-        const TOTAL_ITERATIONS = 90 + _.random(2, 7);
-
-        this.engine.init(this.homeTopTeam.topTeam, this.awayTopTeam.topTeam);
-
         this.loading = false;
-
-        for (; this.currentMin < TOTAL_ITERATIONS; this.currentMin++) {
-          const homeAttackFormation = this.engine.attackFormation(HOME);
-          const homeDefenceFormation = this.engine.defenceFormation(HOME);
-
-          const awayAttackFormation = this.engine.attackFormation(AWAY);
-          const awayDefenceFormation = this.engine.defenceFormation(AWAY);
-
-          this.engine.attack(homeAttackFormation, awayDefenceFormation, HOME, this.currentMin);
-
-          this.engine.attack(awayAttackFormation, homeDefenceFormation, AWAY, this.currentMin);
-
-          this.homeStats = this.engine.getHomeStats();
-          this.awayStats = this.engine.getAwayStats();
-
-          await waitForMillis(200);
-        }
 
         this.complete = true;
       }

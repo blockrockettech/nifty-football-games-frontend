@@ -156,6 +156,13 @@
     text-transform: uppercase;
   }
 
+  .text-purple-md {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $purple;
+    text-transform: uppercase;
+  }
+
   .text-blue-md {
     font-family: 'CrackerJack', sans-serif;
     font-size: 1.5rem;
