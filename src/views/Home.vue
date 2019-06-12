@@ -7,12 +7,22 @@
       <div v-if="loading" class="text-muted">
         Firing up the engines...
       </div>
-      <div v-else class="row">
+      <div v-else class="row bg-light">
         <div class="col-6 p-4 text-center" v-for="g in competition.games">
-            <div class="">GAME {{ g.game + 1}}</div>
-            <div class="text-blue-md">{{ g.home.substr(0, 8) + '...' }}</div>
-            <div class="">VS</div>
-            <div class="text-purple-md">{{ g.away.substr(0, 8) + '...' }}</div>
+          <div class="text-purple-lg">#{{ g.game + 1}}</div>
+          <div class="text-blue-sm mt-3">
+            {{ g.home.substr(0, 12) + '...' }}
+          </div>
+          <div class="text-orange-md">
+            {{ lookupName(g.home) }}
+          </div>
+          <div class="text-purple-md mt-3">VS</div>
+          <div class="text-blue-sm mt-3">
+            {{ g.away.substr(0, 12) + '...' }}
+          </div>
+          <div class="text-orange-md">
+            {{ lookupName(g.away) }}
+          </div>
         </div>
       </div>
     </div>
@@ -34,6 +44,40 @@
       return {
         loading: true,
         competition: null,
+        lookup: [
+          {
+            name: 'Xcopy',
+            address: '0x3768225622d53FfCc1E00eaC53a2A870ECd825C8'
+          },
+          {
+            name: 'Tonys Tigers',
+            address: '0x4cEBaEDCa2570c18520D7383f25700D278C35978'
+          },
+          {
+            name: 'YNWA',
+            address: '0x3a22282CBd2715E9D302B4A4AB0D6a117D8438B6'
+          },
+          {
+            name: 'Lightning',
+            address: '0xc9d60680b0945587f78543ff1ff14b49ec41cf16'
+          },
+          {
+            name: '@artonymousartifakt',
+            address: '0x77350E1152eFD5F2D807A6124015c629a907155E',
+          },
+          {
+            name: 'Athletico Brad',
+            address: '0xd7E1bc51cd3F30e21b17Bab33D77078E3fB7cC26',
+          },
+          {
+            name: 'D AFC',
+            address: '0x70bD3045414eBcBAE77EF84505BC6eA6AF48E672',
+          },
+          {
+            name: '---LuckyJackStuds---',
+            address: '0x41b888be6e9dCCF4316dF7454176F75b72F640dE',
+          },
+        ],
       };
     },
     computed: {
@@ -51,6 +95,14 @@
           .finally(() => {
             this.loading = false;
           });
+      },
+      lookupName(address) {
+        const pair = _.find(this.lookup, (p) => p.address.toLowerCase() === address.toLowerCase());
+        if (pair) {
+          return pair.name;
+        }
+
+        return '';
       },
     },
     async created() {

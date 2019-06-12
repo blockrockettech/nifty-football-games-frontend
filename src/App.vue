@@ -163,6 +163,13 @@
     text-transform: uppercase;
   }
 
+  .text-blue-sm {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1rem;
+    color: $blue;
+    text-transform: uppercase;
+  }
+
   .text-blue-md {
     font-family: 'CrackerJack', sans-serif;
     font-size: 1.5rem;
@@ -187,6 +194,13 @@
   .text-orange-lg {
     font-family: 'CrackerJack', sans-serif;
     font-size: 2rem;
+    color: $orange;
+    text-transform: uppercase;
+  }
+
+  .text-orange-md {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
     color: $orange;
     text-transform: uppercase;
   }
