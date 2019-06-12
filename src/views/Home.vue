@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <h1>Nifty Shield</h1>
     <div class="col">
       <router-link to="/game">Game</router-link>
     </div>
