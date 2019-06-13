@@ -78,7 +78,6 @@
 <script>
   import { mapState } from 'vuex';
   import PageTitle from '../components/PageTitle';
-  import { dotDotDotAccount, waitForMillis } from '../utils';
   import _ from 'lodash';
   import Vue2Filters from 'vue2-filters';
 
@@ -90,44 +89,29 @@
       return {
         loading: false,
         complete: true,
-        homeTeam: null,
-        awayTeam: null,
         currentMin: 0,
-        competition: null,
-        stats: null,
         game: null,
+        stats: null,
       };
     },
     computed: {
       ...mapState([
         'cardsApiService',
         'lookup',
+        'competition',
+        'statsArray',
       ]),
     },
     methods: {
-      loadTeamsAndStats() {
-        this.loading = true;
-
-        this.cardsApiService.loadCompetition(this.$route.params.compId)
-          .then(async (competition) => {
-            this.competition = competition;
-            this.game = _.find(competition.games, (g) => parseInt(g.game) === parseInt(this.$route.params.gameId));
-            return this.cardsApiService.loadStats(this.$route.params.compId, this.$route.params.gameId);
-          })
-          .then(async (stats) => {
-            this.stats = stats;
-            return this.cardsApiService.loadTopTeam(this.game.home);
-          })
-          .then(async (home) => {
-            this.homeTeam = home;
-            return this.cardsApiService.loadTopTeam(this.game.away);
-          })
-          .then(async (away) => {
-            this.awayTeam = away;
-          })
-          .finally(() => {
-            this.loading = false;
-          });
+      async setGame() {
+        if (this.competition) {
+          this.game =  _.find(this.competition.games, (g) => parseInt(g.game) === parseInt(this.$route.params.gameId));
+        }
+      },
+      async setStats() {
+        if (this.statsArray) {
+          this.stats = _.find(this.statsArray, (v, k) => parseInt(k) === parseInt(this.$route.params.gameId));
+        }
       },
       lookupName(address) {
         const pair = _.find(this.lookup, (p) => p.address.toLowerCase() === address.toLowerCase());
@@ -139,13 +123,24 @@
       },
     },
     async created() {
+      this.$store.dispatch('bootstrap');
+
       this.$store.watch(
-        () => this.cardsApiService.network,
-        () => this.loadTeamsAndStats()
+        () => this.competition,
+        () => this.setGame()
       );
 
-      if (this.cardsApiService.network) {
-        this.loadTeamsAndStats();
+      if (this.competition) {
+        this.setGame();
+      }
+
+      this.$store.watch(
+        () => this.statsArray,
+        () => this.setStats()
+      );
+
+      if (this.statsArray) {
+        this.setStats();
       }
     },
   };

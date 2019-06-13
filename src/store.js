@@ -13,6 +13,12 @@ export default new Vuex.Store({
     // API Services
     cardsApiService: new CardsApiService(),
 
+    compId: '57cfbcd0-8d46-11e9-b7b0-3da076de716d',
+    competition: null,
+
+    roundId: 1,
+    statsArray: null,
+
     lookup: [
       {
         name: 'Xcopy',
@@ -48,6 +54,22 @@ export default new Vuex.Store({
       },
     ],
   },
-  mutations: {},
-  actions: {}
+  mutations: {
+    setCompetition(state, competition) {
+      state.competition = competition;
+    },
+    setStatsArray(state, statsArray) {
+      state.statsArray = statsArray;
+    },
+  },
+  actions: {
+    async bootstrap({commit, dispatch, state}) {
+      if (!state.competition && !state.statsArray) {
+        commit('setCompetition', await state.cardsApiService.loadCompetition(state.compId));
+
+        let gamesInRound = _.filter(_.values(state.competition.games), (g) => parseInt(g.round) === parseInt(state.roundId));
+        commit('setStatsArray', await Promise.all(_.map(gamesInRound, (g) => state.cardsApiService.loadStats(state.compId, g.game))));
+      }
+    },
+  }
 });

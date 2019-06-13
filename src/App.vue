@@ -212,6 +212,13 @@
     text-transform: uppercase;
   }
 
+  .text-lime-md {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $lime;
+    text-transform: uppercase;
+  }
+
   .text-lime-xl {
     font-family: 'CrackerJack', sans-serif;
     font-size: 5rem;
