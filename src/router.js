@@ -10,12 +10,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
-      path: '/game',
+      path: '/game/:compId/:gameId',
       name: 'game',
-      component: Game
+      component: Game,
     },
   ]
 });

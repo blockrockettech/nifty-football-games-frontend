@@ -1,87 +1,72 @@
 <template>
   <div>
+    <router-link to="/" class="crackerjack text-left">&lt; HOME</router-link>
+
     <div v-if="loading">Loading...</div>
 
-    <div class="row" v-if="!loading && !(home && away)">
-      <div class="col">
-        <b-form-group id="home" label="Home:" label-for="home">
-          <b-form-select v-model="home" :options="topTeamsOptions" required/>
-        </b-form-group>
-      </div>
-      <div class="col">
-        <b-form-group id="away" label="Away:" label-for="away">
-          <b-form-select v-model="away" :options="topTeamsOptions" required/>
-        </b-form-group>
-      </div>
-    </div>
-    <div v-else-if="!homeTopTeam && !awayTopTeam && home && away" class="text-center">
-      <b-button variant="outline-primary" @click="start">Start</b-button>
-    </div>
-
-    <div v-if="home && away" class="text-center scoreboard-box m-5">
+    <div v-if="game" class="text-center scoreboard-box ml-5 mr-5">
 
       <div class="row mt-5">
         <div class="col">
           <div class="text-white">HOME</div>
-          <div class="text-orange-lg mt-3">{{ home.substr(0, 6) }}</div>
-          <div v-if="homeTopTeam" class="text-white">{{ homeTopTeam.topTeam.teamAverageFloored }}</div>
+          <div class="text-orange-lg mt-3">{{ game.home.substr(0, 6) }}</div>
+          <div class="text-orange-lg mt-3">{{ lookupName(game.home) }}</div>
         </div>
         <div class="col text-white-lg">
           <img alt="Nifty Football" src="../assets/logo.svg" style="max-width: 100px" class="mt-3">
         </div>
         <div class="col">
           <div class="text-white">AWAY</div>
-          <div class="text-orange-lg mt-3">{{away.substr(0, 6) }}</div>
-          <div v-if="awayTopTeam" class="text-white">{{ awayTopTeam.topTeam.teamAverageFloored }}</div>
+          <div class="text-orange-lg mt-3">{{game.away.substr(0, 6) }}</div>
+          <div class="text-orange-lg mt-3">{{ lookupName(game.away) }}</div>
         </div>
       </div>
 
-      <div class="row mt-5" v-if="homeStats && awayStats">
+      <div class="row mt-5" v-if="stats">
         <div class="col text-lime-xl">
-          <span class="bg-dark pl-5 pr-5">{{ homeStats.goals }}</span>
+          <span class="bg-dark pl-5 pr-5">{{ filterBy(stats.homeStats.majorEvents, 'goal', 'eventType').length }}</span>
         </div>
         <div class="col text-lime-lg">
-
           <div v-if="!complete">{{ currentMin }}</div>
           <div v-else>RESULT</div>
         </div>
         <div class="col text-lime-xl">
-          <span class="bg-dark pl-5 pr-5">{{ awayStats.goals }}</span>
+          <span class="bg-dark pl-5 pr-5">{{ filterBy(stats.awayStats.majorEvents, 'goal', 'eventType').length }}</span>
         </div>
       </div>
 
-      <div class="row mt-5 mb-5" v-if="homeStats && awayStats">
+      <div class="row mt-5 mb-5" v-if="stats">
         <div class="col">
-          <div v-for="evt in homeStats.majorEvents" class="text-left ml-5">
+          <div v-for="evt in stats.homeStats.majorEvents" class="text-left ml-5">
             <span v-if="evt.eventType === 'goal'">⚽</span>
             <span v-if="evt.eventType === 'yellow'">🧽</span>
 
-            {{ evt.time }}. {{ evt.fullName }}
+            {{ evt.time }}. {{ evt.playerFullName }} <span class="small">#{{ evt.tokenId }}</span>
           </div>
         </div>
         <div class="col text-blue-md">
           <div class="row">
-            <div class="col">{{ filterBy(homeStats.minorEvents, 'shot', 'eventType').length }}</div>
+            <div class="col">{{ filterBy(stats.homeStats.minorEvents, 'shot', 'eventType').length }}</div>
             <div class="col">Shots</div>
-            <div class="col">{{ filterBy(awayStats.minorEvents, 'shot', 'eventType').length }}</div>
+            <div class="col">{{ filterBy(stats.awayStats.minorEvents, 'shot', 'eventType').length }}</div>
           </div>
           <div class="row">
-            <div class="col">{{ filterBy(homeStats.minorEvents, 'corner', 'eventType').length }}</div>
+            <div class="col">{{ filterBy(stats.homeStats.minorEvents, 'corner', 'eventType').length }}</div>
             <div class="col">Corners</div>
-            <div class="col">{{ filterBy(awayStats.minorEvents, 'corner', 'eventType').length }}</div>
+            <div class="col">{{ filterBy(stats.awayStats.minorEvents, 'corner', 'eventType').length }}</div>
           </div>
           <div class="row">
-            <div class="col">{{ filterBy(homeStats.majorEvents, 'yellow', 'eventType').length }}</div>
+            <div class="col">{{ filterBy(stats.homeStats.majorEvents, 'yellow', 'eventType').length }}</div>
             <div class="col">Yellows</div>
-            <div class="col">{{ filterBy(awayStats.majorEvents, 'yellow', 'eventType').length }}</div>
+            <div class="col">{{ filterBy(stats.awayStats.majorEvents, 'yellow', 'eventType').length }}</div>
           </div>
         </div>
         <div class="col">
-          <div v-for="evt in awayStats.majorEvents" class="text-left ml-5">
+          <div v-for="evt in stats.awayStats.majorEvents" class="text-left ml-5">
             <span v-if="evt.eventType === 'goal'">⚽</span>
             <span v-if="evt.eventType === 'yellow'">🧽</span>
 
-            {{ evt.time }}. {{ evt.fullName }}
+            {{ evt.time }}. {{ evt.playerFullName }} <span class="small">#{{ evt.tokenId }}</span>
           </div>
         </div>
       </div>
@@ -103,56 +88,64 @@
     components: {PageTitle},
     data() {
       return {
-        topTeams: [],
-        topTeamsOptions: [],
         loading: false,
-        complete: false,
-        home: null,
-        homeTopTeam: null,
-        away: null,
-        awayTopTeam: null,
-        homeStats: null,
-        awayStats: null,
+        complete: true,
+        homeTeam: null,
+        awayTeam: null,
         currentMin: 0,
+        competition: null,
+        stats: null,
+        game: null,
       };
     },
     computed: {
       ...mapState([
         'cardsApiService',
+        'lookup',
       ]),
     },
     methods: {
-      loadTopTeams() {
+      loadTeamsAndStats() {
         this.loading = true;
-        this.cardsApiService.loadLeagueTable()
-          .then(async (teams) => {
-            this.topTeams = teams.results.topTeams;
-            this.topTeamsOptions = teams.results.topTeams.map((t) => {
-              return {value: t.owner, text: `${dotDotDotAccount(t.owner)} [${t.topTeamAverageFloored}]`};
-            });
+
+        this.cardsApiService.loadCompetition(this.$route.params.compId)
+          .then(async (competition) => {
+            this.competition = competition;
+            this.game = _.find(competition.games, (g) => parseInt(g.game) === parseInt(this.$route.params.gameId));
+            return this.cardsApiService.loadStats(this.$route.params.compId, this.$route.params.gameId);
+          })
+          .then(async (stats) => {
+            this.stats = stats;
+            return this.cardsApiService.loadTopTeam(this.game.home);
+          })
+          .then(async (home) => {
+            this.homeTeam = home;
+            return this.cardsApiService.loadTopTeam(this.game.away);
+          })
+          .then(async (away) => {
+            this.awayTeam = away;
           })
           .finally(() => {
             this.loading = false;
           });
       },
-      async start() {
-        this.loading = true;
-        this.homeTopTeam = await this.cardsApiService.loadTopTeam(this.home);
-        this.awayTopTeam = await this.cardsApiService.loadTopTeam(this.away);
+      lookupName(address) {
+        const pair = _.find(this.lookup, (p) => p.address.toLowerCase() === address.toLowerCase());
+        if (pair) {
+          return pair.name;
+        }
 
-        this.loading = false;
-
-        this.complete = true;
-      }
+        return '';
+      },
     },
     async created() {
       this.$store.watch(
         () => this.cardsApiService.network,
-        () => this.loadTopTeams()
+        () => this.loadTeamsAndStats()
       );
 
       if (this.cardsApiService.network) {
-        this.loadTopTeams();
+        this.loadTeamsAndStats();
       }
     },
   };
