@@ -16,7 +16,7 @@ export default new Vuex.Store({
     compId: '57cfbcd0-8d46-11e9-b7b0-3da076de716d',
     competition: null,
 
-    roundId: 1,
+    roundId: 2,
     statsArray: null,
 
     lookup: [
@@ -67,8 +67,8 @@ export default new Vuex.Store({
       if (!state.competition && !state.statsArray) {
         commit('setCompetition', await state.cardsApiService.loadCompetition(state.compId));
 
-        let gamesInRound = _.filter(_.values(state.competition.games), (g) => parseInt(g.round) === parseInt(state.roundId));
-        commit('setStatsArray', await Promise.all(_.map(gamesInRound, (g) => state.cardsApiService.loadStats(state.compId, g.game))));
+
+        commit('setStatsArray', await state.cardsApiService.loadAllStats(state.compId));
       }
     },
   }

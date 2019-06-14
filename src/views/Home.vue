@@ -88,7 +88,7 @@
       },
       goals(gameId) {
         if (this.statsArray) {
-          const gameStats = _.find(this.statsArray, (v, k) => k === gameId);
+          const gameStats = this.statsArray[gameId];
           if (gameStats && gameStats.homeStats && gameStats.awayStats) {
             const homeGoalsArray = _.filter(gameStats.homeStats.majorEvents, (e) => e.eventType === 'goal');
             const awayGoalsArray = _.filter(gameStats.awayStats.majorEvents, (e) => e.eventType === 'goal');

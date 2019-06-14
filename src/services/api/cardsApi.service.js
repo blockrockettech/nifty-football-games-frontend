@@ -31,4 +31,10 @@ export default class CardsApiService extends BaseApiService {
     const res = await axios.get(`${this.BASE_API}/network/${this.network}/games/simulator/competition/${compUuid}/stats/${gameId}`, AXIOS_CONFIG);
     return res.data;
   }
+
+  async loadAllStats(compUuid) {
+    console.log(`Load all stats`, compUuid);
+    const res = await axios.get(`${this.BASE_API}/network/${this.network}/games/simulator/competition/${compUuid}/stats`, AXIOS_CONFIG);
+    return res.data;
+  }
 }
