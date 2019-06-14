@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/" class="crackerjack text-left">&lt; HOME</router-link>
+    <router-link :to="{name: 'comp', params: {compId:this.$route.params.compId}}" class="crackerjack text-left mb-3">&lt; Back</router-link>
 
     <div v-if="loading">Loading...</div>
 
@@ -123,7 +123,7 @@
       },
     },
     async created() {
-      this.$store.dispatch('bootstrap');
+      this.$store.dispatch('bootstrap', this.$route.params.compId);
 
       this.$store.watch(
         () => this.competition,

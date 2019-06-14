@@ -13,10 +13,8 @@ export default new Vuex.Store({
     // API Services
     cardsApiService: new CardsApiService(),
 
-    compId: '57cfbcd0-8d46-11e9-b7b0-3da076de716d',
+    compId: null,
     competition: null,
-
-    roundId: 2,
     statsArray: null,
 
     lookup: [
@@ -63,11 +61,13 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async bootstrap({commit, dispatch, state}) {
-      if (!state.competition && !state.statsArray) {
+    async bootstrap({commit, dispatch, state}, compId) {
+      console.log(`bootstrapping`, compId);
+
+      state.compId = compId;
+
+      if (!state.competition || state.competition.id !== state.compId) {
         commit('setCompetition', await state.cardsApiService.loadCompetition(state.compId));
-
-
         commit('setStatsArray', await state.cardsApiService.loadAllStats(state.compId));
       }
     },
