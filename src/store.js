@@ -50,6 +50,10 @@ export default new Vuex.Store({
         name: '---LuckyJackStuds---',
         address: '0x41b888be6e9dCCF4316dF7454176F75b72F640dE',
       },
+      {
+        name: 'Flogk3',
+        address: '0xDEC00A8DF45f9cF321636340921d3d9C91d23723',
+      }
     ],
   },
   mutations: {
