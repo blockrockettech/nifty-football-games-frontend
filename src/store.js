@@ -32,7 +32,7 @@ export default new Vuex.Store({
       11: {name: 'Cardano City', address: '0x60D29311fdb1Bf848856cA5CaEdD199cFF4229A8'},
       12: {name: 'United Hale', address: '0xc02E60A6728114F6769FED45dEc52eedd1A67Ebc'},
       13: {name: 'Diamond Dogs', address: '0xFA517d2Db855ff27c3388F5122e3693817A107F4'},
-      14: {name: 'Jimbob FC', address: '0x0f48669B1681D41357EAc232F516B77D0c10F0F1'},
+      14: {name: 'Alegria', address: '0x30602250c5f1fcbA5407E99B1DFaAB992EA4fFD2'},
       15: {name: 'Akii FC', address: '0xC7391970d642fAf65FAbac8f63b0d41c4481d787'},
     }
   },
