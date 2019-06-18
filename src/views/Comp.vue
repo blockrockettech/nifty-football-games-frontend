@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col">
-      <page-title text="Nifty Sheild"></page-title>
+      <page-title :text="competition.name"></page-title>
       <div v-if="!competition && !statsArray" class="text-muted">
         There are people on the pitch...
       </div>
@@ -79,7 +79,7 @@
     },
     methods: {
       lookupName(address) {
-        const pair = _.find(this.lookup, (p) => p.address.toLowerCase() === address.toLowerCase());
+        const pair = _.find(this.lookup, (p, k) => p.address.toLowerCase() === address.toLowerCase());
         if (pair) {
           return pair.name;
         }

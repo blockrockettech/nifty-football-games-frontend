@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{name: 'comp', params: {compId:this.$route.params.compId}}" class="crackerjack text-left mb-3">&lt; Back</router-link>
+    <router-link :to="{name: 'comp', params: {compId:$route.params.compId}}" class="crackerjack text-left mb-3">&lt; Back</router-link>
 
     <div v-if="loading">Loading...</div>
 
