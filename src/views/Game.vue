@@ -4,7 +4,7 @@
 
     <div v-if="loading">Loading...</div>
 
-    <div v-if="game" class="text-center scoreboard-box ml-5 mr-5">
+    <div v-if="game" class="text-center scoreboard-box ml-5 mr-5 mb-5">
 
       <div class="row mt-5">
         <div class="col">

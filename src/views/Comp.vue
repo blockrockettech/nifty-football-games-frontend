@@ -6,12 +6,14 @@
         There are people on the pitch...
       </div>
       <div v-else>
-        <div class="row bg-light m-4">
+        <div class="row scoreboard-box ml-5 mr-5 mb-5">
           <div class="col-12 col-sm-6 p-4 text-center mb-5" v-for="g in competition.games">
             <div class="row">
               <div class="col-8 text-left">
                   <span class="text-orange-md">{{ lookupName(g.home) }}</span>
-                  <span class="small text-muted ml-3">{{ g.home.substr(0, 6) + '...' }}</span>
+                  <span class="small text-muted ml-2">
+                    <a :href="`https://niftyfootball.cards/team/${g.home}`" target="_blank">{{ g.home.substr(0, 6) + '...' }}</a>
+                  </span>
               </div>
               <div class="col-4">
                 <div v-if="statsArray" class="bg-dark pl-5 pr-5 text-lime-md">{{ goals(g.game).homeGoals }}</div>
@@ -24,7 +26,9 @@
             <div class="row">
               <div class="col-8 text-left">
                 <span class="text-orange-md">{{ lookupName(g.away) }}</span>
-                <span class="small text-muted ml-3">{{ g.away.substr(0, 6) + '...' }}</span>
+                <span class="small text-muted ml-2">
+                  <a :href="`https://niftyfootball.cards/team/${g.away}`" target="_blank">{{ g.away.substr(0, 6) + '...' }}</a>
+                </span>
               </div>
               <div class="col-4">
                 <div v-if="statsArray" class="bg-dark pl-5 pr-5 text-lime-md">{{ goals(g.game).awayGoals }}</div>

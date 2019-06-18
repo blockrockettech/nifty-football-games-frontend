@@ -5,6 +5,9 @@
         <router-view/>
       </div>
     </div>
+    <footer>
+      <router-link to="/">Home</router-link>
+    </footer>
   </div>
 </template>
 
@@ -78,8 +81,8 @@
     background-color: $lightblack;
     font-family: 'CrackerJack', sans-serif;
     text-transform: uppercase;
-    border: 12px solid $purple;
-    box-shadow: 0 18px 0 0 $purple;
+    border: 12px solid $blue;
+    box-shadow: 0 18px 0 0 $blue;
     font-size: 1.25rem;
     color: $white;
     margin-bottom: 15px;
@@ -88,6 +91,26 @@
     padding-left: 10px;
     padding-right: 10px;
     letter-spacing: 2px;
+  }
+
+  .comp-box {
+    background-color: $lightblack;
+    font-family: 'CrackerJack', sans-serif;
+    text-transform: uppercase;
+    border: 6px solid $orange;
+    box-shadow: 0 9px 0 0 $orange;
+    font-size: 1.25rem;
+    color: $white;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    letter-spacing: 2px;
+
+    a {
+      color: $white;
+    }
   }
 
   .smallest {
