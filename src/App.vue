@@ -207,6 +207,13 @@
     text-transform: uppercase;
   }
 
+  .text-white-md {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1.5rem;
+    color: $white;
+    text-transform: uppercase;
+  }
+
   .text-blue-xl {
     font-family: 'CrackerJack', sans-serif;
     font-size: 4rem;
