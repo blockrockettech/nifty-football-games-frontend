@@ -13,7 +13,10 @@
           <div class="text-orange-lg mt-3">{{ lookupName(game.home) }}</div>
         </div>
         <div class="col text-white-lg">
-          <img alt="Nifty Football" src="../assets/logo.svg" style="max-width: 100px" class="mt-3">
+          <!--<img alt="Nifty Football" src="../assets/logo.svg" style="max-width: 100px" class="mt-3">-->
+            <div v-if="competition.roundClock < 140">
+             {{ competition.roundClock }}
+            </div>
         </div>
         <div class="col">
           <div class="text-white">AWAY</div>
@@ -27,8 +30,7 @@
           <span class="bg-dark pl-5 pr-5">{{ filterBy(stats.homeStats.majorEvents, 'goal', 'eventType').length }}</span>
         </div>
         <div class="col text-lime-lg">
-          <div v-if="!complete">{{ currentMin }}</div>
-          <div v-else>RESULT</div>
+          <!--<div v-if="game">{{ game }}</div>-->
         </div>
         <div class="col text-lime-xl">
           <span class="bg-dark pl-5 pr-5">{{ filterBy(stats.awayStats.majorEvents, 'goal', 'eventType').length }}</span>

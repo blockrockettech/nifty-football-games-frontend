@@ -16,6 +16,7 @@ export default new Vuex.Store({
     compId: null,
     competition: null,
     statsArray: null,
+    round: 4,
 
     lookup: {
       0: {name: 'Xcopy', address: '0x3768225622d53FfCc1E00eaC53a2A870ECd825C8'},
