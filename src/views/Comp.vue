@@ -19,8 +19,8 @@
                   <div class="col-9 text-left">
                     <span class="text-orange-md">{{ lookupName(g.home) }}</span>
                     <span class="small text-muted ml-2">
-                    <a :href="`https://niftyfootball.cards/team/${g.home}`" target="_blank">{{ g.home.substr(0, 6) + '...' }}</a>
-                  </span>
+                      <a :href="`https://niftyfootball.cards/team/${g.home}`" target="_blank">{{ g.home.substr(0, 6) + '...' }}</a>
+                    </span>
                     <span v-if="competition.roundClock > 139 && g.result && g.result.result && g.result.result === 'home-pens'">
                     * WIN PENS
                   </span>

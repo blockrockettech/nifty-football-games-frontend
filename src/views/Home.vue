@@ -4,23 +4,21 @@
       <page-title text="Welcome to Nifty Football Games"></page-title>
       <div class="row">
         <div class="col-4 m-3 comp-box">
-          <router-link :to="{name: 'comp', params: {compId:'57cfbcd0-8d46-11e9-b7b0-3da076de716d'}}">
-            Nifty Sheild
+          <router-link :to="{name: 'comp', params: {compId:'dec21ae0-911e-11e9-a760-4f54707f933f'}}">
+            Nifty Football Open
           </router-link>
           <div class="text-blue-sm">
-            WINNER: XCOPY
+            WINNER: WEST VIRGINIA
           </div>
         </div>
+
         <div class="col-4 m-3 comp-box">
-          <router-link :to="{name: 'comp', params: {compId:'985a0820-8eb6-11e9-b5bf-c308254302bd'}}">
-            Nifty Challenge Match
+          <router-link :to="{name: 'comp', params: {compId:'85bbdc90-d62b-11e9-b37f-671ed62fdff3'}}">
+            War of the Roses
           </router-link>
           <div class="text-blue-sm">
-            WINNER: FLOGK3
+            WINNER: ??
           </div>
-        </div>
-        <div class="col-4 m-3 comp-box">
-          <router-link :to="{name: 'comp', params: {compId:'dec21ae0-911e-11e9-a760-4f54707f933f'}}">Nifty Football Open</router-link>
         </div>
       </div>
 
