@@ -17,9 +17,29 @@
             War of the Roses
           </router-link>
           <div class="text-blue-sm">
-            WINNER: ??
+            WINNER: WHITE ROSES
           </div>
         </div>
+
+        <div class="col-4 m-3 comp-box">
+          <router-link :to="{name: 'comp', params: {compId:'7a3b3770-d636-11e9-a23c-9d1e1589e7ab'}}">
+            War of the Roses II
+          </router-link>
+          <div class="text-blue-sm">
+            WINNER: ?
+          </div>
+        </div>
+
+        <div class="col-4 m-3 comp-box">
+          <router-link :to="{name: 'comp', params: {compId:'3ecdfe60-d63c-11e9-9b73-f7f28207c6aa'}}">
+            Alpha Friendly
+          </router-link>
+          <div class="text-blue-sm">
+            WINNER: ?
+          </div>
+        </div>
+
+
       </div>
 
     </div>

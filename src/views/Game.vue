@@ -39,9 +39,9 @@
 
       <div class="row mt-5 mb-5" v-if="stats">
         <div class="col">
-          <div v-for="evt in stats.homeStats.majorEvents" class="text-left ml-5">
-            <span v-if="evt.eventType === 'goal'">⚽</span>
-            <span v-if="evt.eventType === 'yellow'">🧽</span>
+          <div v-for="evt in stats.homeStats.majorEvents" class="text-left ml-5 mt-2">
+            <span v-if="evt.eventType === 'goal'"><img src="../assets/icons/football-ball.svg" style="width: 25px;"/></span>
+            <span v-if="evt.eventType === 'yellow'"><img src="../assets/icons/yellow.svg" style="width: 25px;"/></span>
 
             {{ evt.time }}. {{ evt.playerFullName }} <span class="small">#{{ evt.tokenId }}</span>
           </div>
@@ -64,9 +64,9 @@
           </div>
         </div>
         <div class="col">
-          <div v-for="evt in stats.awayStats.majorEvents" class="text-left ml-5">
-            <span v-if="evt.eventType === 'goal'">⚽</span>
-            <span v-if="evt.eventType === 'yellow'">🧽</span>
+          <div v-for="evt in stats.awayStats.majorEvents" class="text-left ml-5 mt-2">
+            <span v-if="evt.eventType === 'goal'"><img src="../assets/icons/football-ball.svg" style="width: 25px;"/></span>
+            <span v-if="evt.eventType === 'yellow'"><img src="../assets/icons/yellow.svg" style="width: 25px;"/></span>
             {{ evt.time }}. {{ evt.playerFullName }} <span class="small">#{{ evt.tokenId }}</span>
           </div>
         </div>
@@ -88,7 +88,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -122,7 +122,7 @@
       ]),
       getAllHomeStats: function () {
         if (this.stats) {
-          return _.concat(this.stats.homeStats.minorEvents, this.stats.homeStats.majorEvents);
+          return _.sortBy(_.concat(this.stats.homeStats.minorEvents, this.stats.homeStats.majorEvents), ['time']);
         }
       },
       getAllAwayStats: function () {

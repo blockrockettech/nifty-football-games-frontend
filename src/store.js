@@ -36,6 +36,7 @@ export default new Vuex.Store({
       15: {name: 'Akii FC', address: '0xC7391970d642fAf65FAbac8f63b0d41c4481d787'},
       16: {name: 'White Roses', address: '0xc9D60680B0945587f78543FF1FF14b49Ec41CF16'},
       17: {name: 'Tiger Feet', address: '0x401cBf2194D35D078c0BcdAe4BeA42275483ab5F'},
+      18: {name: 'Rankin', address: '0xDFdd2B064FDb72b55b5Ec6Da1ac744188aF3A426'},
     }
   },
   mutations: {
