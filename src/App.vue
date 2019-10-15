@@ -1,10 +1,8 @@
 <template>
-  <div class="container-fluid text-center mt-3">
-    <div class="row">
-      <div class="col">
-        <router-view/>
-      </div>
-    </div>
+  <div class="container-fluid">
+
+    <router-view/>
+
     <footer>
       <router-link to="/">Home</router-link>
     </footer>
@@ -32,11 +30,12 @@
   }
 
   p {
-    color: $black;
+    color: $white;
   }
 
   body {
-    color: $black;
+    background-color: $gray !important;
+    padding-top: 0;
   }
 
   h1 {
@@ -75,6 +74,11 @@
 
   code {
     color: $primary;
+  }
+
+
+  #outer {
+
   }
 
   .scoreboard-box {
@@ -235,6 +239,20 @@
     text-transform: uppercase;
   }
 
+  .text-orange-sm {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1rem;
+    color: $orange;
+    text-transform: uppercase;
+  }
+
+  .text-white-sm {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1rem;
+    color: $white;
+    text-transform: uppercase;
+  }
+
   .text-lime-lg {
     font-family: 'CrackerJack', sans-serif;
     font-size: 2rem;
@@ -245,6 +263,13 @@
   .text-lime-md {
     font-family: 'CrackerJack', sans-serif;
     font-size: 1.5rem;
+    color: $lime;
+    text-transform: uppercase;
+  }
+
+  .text-lime-sm {
+    font-family: 'CrackerJack', sans-serif;
+    font-size: 1rem;
     color: $lime;
     text-transform: uppercase;
   }

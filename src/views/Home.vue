@@ -7,6 +7,10 @@
           <router-link :to="{name: 'comp', params: {compId:'dec21ae0-911e-11e9-a760-4f54707f933f'}}">
             Nifty Football Open
           </router-link>
+          <hr/>
+          <router-link :to="{name: 'vidiprinter', params: {compId:'dec21ae0-911e-11e9-a760-4f54707f933f'}}">
+            Nifty Football Open VIDI
+          </router-link>
           <div class="text-blue-sm">
             WINNER: WEST VIRGINIA
           </div>
