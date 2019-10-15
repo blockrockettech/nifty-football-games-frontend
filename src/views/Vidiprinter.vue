@@ -9,6 +9,9 @@
         <div class="col-4">
           <div class="row bg-dark m-1">
             <div class="col">
+              <div class="row">
+                <div class="col-12 pt-2 pb-2 text-white-sm bg-black-stripe text-center comp-name">{{ competition.name }}</div>
+              </div>
               <div class="row games-list" v-for="g in games()">
                 <div class="col-5 pt-2 pb-2 text-orange-sm text-left team-name">{{ lookupName(g.home) }}</div>
                 <div class="col-2 pt-2 pb-2 text-white-sm text-center bg-dark">{{ goals(g.game).homeGoals }} - {{ goals(g.game).awayGoals }}</div>
@@ -17,12 +20,107 @@
             </div>
           </div>
         </div>
-        <div class="col-5" id="mid-top">MID</div>
-        <div class="col-3" id="rhs-top">RHS</div>
+        <div class="col-5">
+          <div class="row bg-dark m-1">
+            <div class="col">
+              <div class="row bg-dark">
+                <div class="col-3 p-4 text-center">
+                  <img src="../assets/logo.svg"/>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col-9 text-lime-lg">
+                      {{ lookupName(games()[0].home) }}
+                    </div>
+                    <div class="col-3 bg-black-stripe text-white-lg text-center">
+                      {{ goals(games()[0].game).homeGoals }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row bg-dark">
+                <div class="col-3 p-4 text-center">
+                  <img src="../assets/gray_logo.svg"/>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col-9">
+                      <span class="text-blue-lg">{{ lookupName(games()[0].away) }}</span>
+                      <div class="row">
+                        <div class="col-4 text-white-sm scorer-name">Gray 12</div>
+                        <div class="col-4 text-white-sm scorer-name">Morgan 3</div>
+                      </div>
+                    </div>
+                    <div class="col-3 bg-black-stripe text-white-lg text-center">
+                      {{ goals(games()[0].game).awayGoals }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="row bg-dark m-1 ">
+            <div class="col">
+              <div class="row">
+                <div class="col-12 pt-2 pb-2 text-white-sm bg-black-stripe text-center comp-name">Match Stats</div>
+              </div>
+              <div class="row">
+                <div class="col text-center text-orange-sm">
+                  Shots
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4 text-left text-lime-md">
+                  2
+                </div>
+                <div class="col-4 text-right text-lime-md">
+                  &nbsp;
+                </div>
+                <div class="col-4 text-right text-blue-md">
+                  2
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-center text-orange-sm">
+                  Corners
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4 text-left text-lime-md">
+                  2
+                </div>
+                <div class="col-4 text-right text-lime-md">
+                  &nbsp;
+                </div>
+                <div class="col-4 text-right text-blue-md">
+                  2
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-center text-orange-sm">
+                  Yellows
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4 text-left text-lime-md">
+                  2
+                </div>
+                <div class="col-4 text-right text-lime-md">
+                  &nbsp;
+                </div>
+                <div class="col-4 text-right text-blue-md">
+                  2
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row bg-dark" id="bottom">
-        <div class="col-3" id="lhs-bottom">LHS</div>
-        <div class="col-9" id="mid-bottom">MID</div>
+        <div class="col-4" id="lhs-bottom">LHS</div>
+        <div class="col-8" id="mid-bottom">MID</div>
       </div>
 
     </div>
@@ -142,14 +240,14 @@
   @import "../colours";
 
   #top {
-    min-height: 500px;
+    min-height: 300px;
   }
 
   #bottom {
     min-height: 300px;
   }
 
-  .team-name {
+  .team-name, .scorer-name, .comp-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -157,9 +255,11 @@
 
 
   div.games-list:nth-child(odd) {
-    background-color: $gray-stripe;
+    background-color: $black-stripe;
   }
 
-
+  .bg-black-stripe {
+    background: $black-stripe;
+  }
 
 </style>
