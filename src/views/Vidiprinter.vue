@@ -5,8 +5,8 @@
       There are people on the pitch...
     </div>
     <div v-else class="m-2">
-      <div class="row" id="top">
-        <div class="col-4">
+      <div class="row">
+        <div class="col-4 pb-4">
           <div class="row bg-dark m-1">
             <div class="col">
               <div class="row">
@@ -20,11 +20,11 @@
             </div>
           </div>
         </div>
-        <div class="col-5">
+        <div class="col-5 pb-4">
           <div class="row bg-dark m-1">
             <div class="col">
               <div class="row bg-dark">
-                <div class="col-3 p-4 text-center">
+                <div class="col-3 p-4 text-center bg-lightgray">
                   <img src="../assets/logo.svg"/>
                 </div>
                 <div class="col">
@@ -39,7 +39,7 @@
                 </div>
               </div>
               <div class="row bg-dark">
-                <div class="col-3 p-4 text-center">
+                <div class="col-3 p-4 text-center bg-lightgray">
                   <img src="../assets/gray_logo.svg"/>
                 </div>
                 <div class="col">
@@ -61,66 +61,96 @@
           </div>
         </div>
         <div class="col-3">
-          <div class="row bg-dark m-1 ">
+          <div class="row bg-dark m-1 pb-4">
             <div class="col">
               <div class="row">
                 <div class="col-12 pt-2 pb-2 text-white-sm bg-black-stripe text-center comp-name">Match Stats</div>
               </div>
-              <div class="row">
+              <div class="row mt-4">
                 <div class="col text-center text-orange-sm">
                   Shots
                 </div>
               </div>
               <div class="row">
-                <div class="col-4 text-left text-lime-md">
+                <div class="col-2 text-left text-lime-md">
                   2
                 </div>
-                <div class="col-4 text-right text-lime-md">
-                  &nbsp;
+                <div class="col-8 text-right text-lime-md">
+                  <div class="row">
+                    <div class="col bg-lime">&nbsp;</div>
+                    <div class="col bg-blue">&nbsp;</div>
+                  </div>
                 </div>
-                <div class="col-4 text-right text-blue-md">
+                <div class="col-2 text-right text-blue-md">
                   2
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col text-center text-orange-sm">
                   Corners
                 </div>
               </div>
               <div class="row">
-                <div class="col-4 text-left text-lime-md">
-                  2
+                <div class="col-2 text-left text-lime-md">
+                  1
                 </div>
-                <div class="col-4 text-right text-lime-md">
-                  &nbsp;
+                <div class="col-8 text-right text-lime-md">
+                 <div class="row">
+                   <div class="col-3 bg-lime">&nbsp;</div>
+                   <div class="col-9 bg-blue">&nbsp;</div>
+                 </div>
                 </div>
-                <div class="col-4 text-right text-blue-md">
-                  2
+                <div class="col-2 text-right text-blue-md">
+                  3
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col text-center text-orange-sm">
                   Yellows
                 </div>
               </div>
               <div class="row">
-                <div class="col-4 text-left text-lime-md">
-                  2
+                <div class="col-2 text-left text-lime-md">
+                  1
                 </div>
-                <div class="col-4 text-right text-lime-md">
-                  &nbsp;
+                <div class="col-8 text-right text-lime-md">
+                  <div class="row">
+                    <div class="col-12 bg-lime">&nbsp;</div>
+                  </div>
                 </div>
-                <div class="col-4 text-right text-blue-md">
-                  2
+                <div class="col-2 text-right text-blue-md">
+                  0
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row bg-dark" id="bottom">
-        <div class="col-4" id="lhs-bottom">LHS</div>
-        <div class="col-8" id="mid-bottom">MID</div>
+      <div class="row" id="bottom">
+        <div class="col-4">
+          <div class="row bg-dark m-1">
+            <div class="col text-center">
+              <p class="text-blue-sm">Sponsors</p>
+              <img src="../assets/brands/BlockR_WhiteLogo.svg" class="img-fluid p-5"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="row bg-dark m-1">
+            <div class="col">
+                <div class="row vidi-list" v-for="event in ['GOAL', 'YELLOW', 'GOAL']">
+                  <div class="col-2 bg-lightgray text-center text-orange-sm">{{ event }}</div>
+                  <div class="col-8">
+                    <span class="text-white-sm mr-3">ATHLETICO DAMICO</span>
+                    <span class="text-white-sm mr-3">0</span>
+                    <span class="text-white-sm mr-3">WEST VIRGINIA</span>
+                    <span class="text-blue-sm mr-3">1</span>
+                    <span class="text-blue-sm mr-3">Morgan 12</span>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -255,6 +285,10 @@
 
 
   div.games-list:nth-child(odd) {
+    background-color: $black-stripe;
+  }
+
+  div.vidi-list:nth-child(odd) {
     background-color: $black-stripe;
   }
 

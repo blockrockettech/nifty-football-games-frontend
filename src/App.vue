@@ -295,6 +295,18 @@
     text-transform: uppercase;
   }
 
+  .bg-lime {
+    background: $lime;
+  }
+
+  .bg-blue {
+    background: $blue;
+  }
+
+  .bg-lightgray {
+    background: $lightgrey;
+  }
+
   .header-text-sm {
     font-family: 'CrackerJack', sans-serif;
     font-size: 1.3rem;
