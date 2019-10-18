@@ -81,7 +81,7 @@
               </div>
               <div class="row">
                 <div class="col-2 text-left text-lime-md">
-                  2
+                  {{ filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'shot', 'eventType').length }}
                 </div>
                 <div class="col-8 text-right text-lime-md">
                   <div class="row">
@@ -90,7 +90,7 @@
                   </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
-                  2
+                  {{ filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'shot', 'eventType').length }}
                 </div>
               </div>
               <div class="row mt-2">
@@ -100,7 +100,7 @@
               </div>
               <div class="row">
                 <div class="col-2 text-left text-lime-md">
-                  1
+                  {{ filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'corner', 'eventType').length }}
                 </div>
                 <div class="col-8 text-right text-lime-md">
                   <div class="row">
@@ -109,7 +109,7 @@
                   </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
-                  3
+                  {{ filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'corner', 'eventType').length }}
                 </div>
               </div>
               <div class="row mt-2">
@@ -119,7 +119,7 @@
               </div>
               <div class="row">
                 <div class="col-2 text-left text-lime-md">
-                  1
+                  {{ filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'yellow', 'eventType').length }}
                 </div>
                 <div class="col-8 text-right text-lime-md">
                   <div class="row">
@@ -127,7 +127,7 @@
                   </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
-                  0
+                  {{ filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'yellow', 'eventType').length }}
                 </div>
               </div>
             </div>
@@ -162,56 +162,6 @@
       </div>
 
     </div>
-    <!--<div v-else>-->
-    <!--<div class="row scoreboard-box ml-5 mr-5 mb-5">-->
-    <!--<div class="col">-->
-    <!--<div class="row" v-if="competition.roundClock < 140">-->
-    <!--<div class="col text-right text-white-md">-->
-    <!--MINS: {{ competition.roundClock }}-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-    <!--<div class="col-12 col-sm-6 p-4 text-center mb-5" v-for="g in games()">-->
-    <!--<div class="row">-->
-    <!--<div class="col-9 text-left">-->
-    <!--<span class="text-orange-md">{{ lookupName(g.home) }}</span>-->
-    <!--<span class="small text-muted ml-2">-->
-    <!--<a :href="`https://niftyfootball.cards/team/${g.home}`" target="_blank">{{ g.home.substr(0, 6) + '...' }}</a>-->
-    <!--</span>-->
-    <!--<span v-if="competition.roundClock > 139 && g.result && g.result.result && g.result.result === 'home-pens'">-->
-    <!--* WIN PENS-->
-    <!--</span>-->
-    <!--</div>-->
-    <!--<div class="col-3">-->
-    <!--<div v-if="statsArray" class="bg-dark pl-5 pr-5 text-lime-md">{{ goals(g.game).homeGoals }}</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-    <!--<div class="col-9 text-left">-->
-    <!--<span class="text-orange-md">{{ lookupName(g.away) }}</span>-->
-    <!--<span class="small text-muted ml-2">-->
-    <!--<a :href="`https://niftyfootball.cards/team/${g.away}`" target="_blank">{{ g.away.substr(0, 6) + '...' }}</a>-->
-    <!--</span>-->
-    <!--<span v-if="competition.roundClock > 139 && g.result && g.result.result && g.result.result === 'away-pens'" class="small crackerjack text-right">-->
-    <!--* WIN PENS-->
-    <!--</span>-->
-    <!--</div>-->
-    <!--<div class="col-3">-->
-    <!--<div v-if="statsArray" class="bg-dark pl-5 pr-5 text-lime-md">{{ goals(g.game).awayGoals }}</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row text-right">-->
-    <!--<div class="col-12">-->
-    <!--<router-link class="small" v-if="g.result" :to="{name: 'game', params: {compId: competition.id, gameId: g.game }}">-->
-    <!--View match-->
-    <!--</router-link>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
   </div>
 </template>
 
@@ -326,7 +276,7 @@
   }
 
   div.games-list:hover {
-    background-color: $lime;
+    filter: brightness(150%);
     cursor: pointer;
   }
 
