@@ -1,6 +1,8 @@
 <template>
   <div id="outer">
 
+    <!--<pre>{{ statsArray }}</pre>-->
+
     <div v-if="!competition && !statsArray" class="text-muted">
       There are people on the pitch...
     </div>
@@ -12,7 +14,7 @@
               <div class="row">
                 <div class="col-12 pt-2 pb-2 text-white-sm bg-black-stripe text-center comp-name">{{ competition.name }}</div>
               </div>
-              <div class="row games-list" v-for="g in games()">
+              <div class="row games-list" v-for="(g, i) in games()" @click="setMainGame(i)">
                 <div class="col-5 pt-2 pb-2 text-orange-sm text-left team-name">{{ lookupName(g.home) }}</div>
                 <div class="col-2 pt-2 pb-2 text-white-sm text-center bg-dark">{{ goals(g.game).homeGoals }} - {{ goals(g.game).awayGoals }}</div>
                 <div class="col-5 pt-2 pb-2 text-orange-sm text-right team-name">{{ lookupName(g.away) }}</div>
@@ -30,10 +32,15 @@
                 <div class="col">
                   <div class="row">
                     <div class="col-9 text-lime-lg">
-                      {{ lookupName(games()[0].home) }}
+                      {{ lookupName(games()[gameIndex].home) }}
+                      <div class="row">
+                        <div class="col-6 text-white-sm scorer-name" v-for="evt in goalFilter(statsArray[gameIndex].homeStats.majorEvents)">
+                          {{ surname(evt.playerFullName) }} <span class="text-orange-sm">{{ evt.time }}</span>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-3 bg-black-stripe text-white-lg text-center">
-                      {{ goals(games()[0].game).homeGoals }}
+                      {{ goals(games()[gameIndex].game).homeGoals }}
                     </div>
                   </div>
                 </div>
@@ -45,14 +52,15 @@
                 <div class="col">
                   <div class="row">
                     <div class="col-9">
-                      <span class="text-blue-lg">{{ lookupName(games()[0].away) }}</span>
+                      <span class="text-blue-lg">{{ lookupName(games()[gameIndex].away) }}</span>
                       <div class="row">
-                        <div class="col-4 text-white-sm scorer-name">Gray 12</div>
-                        <div class="col-4 text-white-sm scorer-name">Morgan 3</div>
+                        <div class="col-6 text-white-sm scorer-name" v-for="evt in goalFilter(statsArray[gameIndex].awayStats.majorEvents)">
+                          {{ surname(evt.playerFullName) }} <span class="text-orange-sm">{{ evt.time }}</span>
+                        </div>
                       </div>
                     </div>
                     <div class="col-3 bg-black-stripe text-white-lg text-center">
-                      {{ goals(games()[0].game).awayGoals }}
+                      {{ goals(games()[gameIndex].game).awayGoals }}
                     </div>
                   </div>
                 </div>
@@ -95,10 +103,10 @@
                   1
                 </div>
                 <div class="col-8 text-right text-lime-md">
-                 <div class="row">
-                   <div class="col-3 bg-lime">&nbsp;</div>
-                   <div class="col-9 bg-blue">&nbsp;</div>
-                 </div>
+                  <div class="row">
+                    <div class="col-3 bg-lime">&nbsp;</div>
+                    <div class="col-9 bg-blue">&nbsp;</div>
+                  </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
                   3
@@ -131,23 +139,23 @@
           <div class="row bg-dark m-1">
             <div class="col text-center">
               <p class="text-blue-sm">Sponsors</p>
-              <img src="../assets/brands/BlockR_WhiteLogo.svg" class="img-fluid p-5"/>
+              <img src="../assets/brands/BD_Logo_Full_Smooth_White.png" class="img-fluid p-5" style="max-height: 200px"/>
             </div>
           </div>
         </div>
         <div class="col-8">
           <div class="row bg-dark m-1">
             <div class="col">
-                <div class="row vidi-list" v-for="event in ['GOAL', 'YELLOW', 'GOAL']">
-                  <div class="col-2 bg-lightgray text-center text-orange-sm">{{ event }}</div>
-                  <div class="col-8">
-                    <span class="text-white-sm mr-3">ATHLETICO DAMICO</span>
-                    <span class="text-white-sm mr-3">0</span>
-                    <span class="text-white-sm mr-3">WEST VIRGINIA</span>
-                    <span class="text-blue-sm mr-3">1</span>
-                    <span class="text-blue-sm mr-3">Morgan 12</span>
-                  </div>
+              <div class="row vidi-list" v-for="event in ['GOAL', 'YELLOW', 'GOAL']">
+                <div class="col-2 bg-lightgray text-center text-orange-sm">{{ event }}</div>
+                <div class="col-8">
+                  <span class="text-white-sm mr-3">ATHLETICO DAMICO</span>
+                  <span class="text-white-sm mr-3">0</span>
+                  <span class="text-white-sm mr-3">WEST VIRGINIA</span>
+                  <span class="text-blue-sm mr-3">1</span>
+                  <span class="text-blue-sm mr-3">Morgan 12</span>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -218,7 +226,9 @@
     components: {PageTitle},
     mixins: [Vue2Filters.mixin],
     data() {
-      return {};
+      return {
+        gameIndex: 0,
+      };
     },
     computed: {
       ...mapState([
@@ -230,6 +240,11 @@
       ]),
     },
     methods: {
+      setMainGame(index) {
+        console.log('Setting main game index', index);
+        this.gameIndex = index;
+      },
+
       lookupName(address) {
         const pair = _.find(this.lookup, (p, k) => p.address.toLowerCase() === address.toLowerCase());
         if (pair) {
@@ -238,6 +253,29 @@
 
         return '';
       },
+
+      goalFilter(majorEvents) {
+        console.log(majorEvents);
+        if (majorEvents) {
+          return _.filter(majorEvents, event => event.eventType === 'goal');
+        }
+
+        return null;
+      },
+
+      surname(fullName) {
+        if (fullName) {
+          const parts = fullName.trim().split(' ');
+          if (parts.length === 2) {
+            return parts[1];
+          }
+
+          return fullName;
+        }
+
+        return '';
+      },
+
       goals(gameId) {
         if (this.statsArray) {
           const gameStats = this.statsArray[gameId];
@@ -283,9 +321,13 @@
     text-overflow: ellipsis;
   }
 
-
   div.games-list:nth-child(odd) {
     background-color: $black-stripe;
+  }
+
+  div.games-list:hover {
+    background-color: $lime;
+    cursor: pointer;
   }
 
   div.vidi-list:nth-child(odd) {
