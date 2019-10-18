@@ -85,8 +85,14 @@
                 </div>
                 <div class="col-8 text-right text-lime-md">
                   <div class="row">
-                    <div class="col bg-lime">&nbsp;</div>
-                    <div class="col bg-blue">&nbsp;</div>
+                    <div class="bg-lime"
+                         :class="statsCol(filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'shot', 'eventType').length, filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'shot', 'eventType').length)[0]">
+                      &nbsp;
+                    </div>
+                    <div class="bg-blue"
+                         :class="statsCol(filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'shot', 'eventType').length, filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'shot', 'eventType').length)[1]">
+                      &nbsp;
+                    </div>
                   </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
@@ -104,8 +110,14 @@
                 </div>
                 <div class="col-8 text-right text-lime-md">
                   <div class="row">
-                    <div class="col-3 bg-lime">&nbsp;</div>
-                    <div class="col-9 bg-blue">&nbsp;</div>
+                    <div class="bg-lime"
+                         :class="statsCol(filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'corner', 'eventType').length, filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'corner', 'eventType').length)[0]">
+                      &nbsp;
+                    </div>
+                    <div class="bg-blue"
+                         :class="statsCol(filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'corner', 'eventType').length, filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'corner', 'eventType').length)[1]">
+                      &nbsp;
+                    </div>
                   </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
@@ -123,7 +135,14 @@
                 </div>
                 <div class="col-8 text-right text-lime-md">
                   <div class="row">
-                    <div class="col-12 bg-lime">&nbsp;</div>
+                    <div class="bg-lime"
+                         :class="statsCol(filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'yellow', 'eventType').length, filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'yellow', 'eventType').length)[0]">
+                      &nbsp;
+                    </div>
+                    <div class="bg-blue"
+                         :class="statsCol(filterBy(statsArray[[gameIndex]].homeStats.minorEvents, 'yellow', 'eventType').length, filterBy(statsArray[[gameIndex]].awayStats.minorEvents, 'yellow', 'eventType').length)[1]">
+                      &nbsp;
+                    </div>
                   </div>
                 </div>
                 <div class="col-2 text-right text-blue-md">
@@ -211,6 +230,41 @@
         }
 
         return null;
+      },
+
+      statsCol(home, away) {
+
+        if (home === 0 && away === 0) {
+          return [`col-6`, `col-6`];
+        }
+
+        if (home > 0 && away === 0) {
+          return [`col-12`, `d-none`];
+        }
+
+        if (home === 0 && away > 0) {
+          return [`d-none`, `col-12`];
+        }
+
+        const percentage = home / away;
+
+        if (percentage > 1 && percentage < 1.5) {
+          return [`col-8`, `col-4`];
+        }
+
+        if (percentage >= 1.5) {
+          return [`col-10`, `col-2`];
+        }
+
+        if (percentage > 0.5 && percentage < 1) {
+          return [`col-4`, `col-8`];
+        }
+
+        if (percentage <= 0.5) {
+          return [`col-2`, `col-10`];
+        }
+
+        return [`col-6`, `col-6`];
       },
 
       surname(fullName) {
